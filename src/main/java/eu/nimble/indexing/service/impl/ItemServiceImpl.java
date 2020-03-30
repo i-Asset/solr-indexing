@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Optional;
 import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
@@ -22,13 +21,11 @@ import at.srfg.indexing.model.common.Concept;
 import at.srfg.indexing.model.common.PropertyType;
 import at.srfg.indexing.model.party.PartyType;
 import at.srfg.indexing.model.solr.IndexField;
-import at.srfg.indexing.service.event.CustomPropertyEvent;
-import at.srfg.indexing.service.event.PartyEvent;
-import at.srfg.indexing.service.event.PropertyMapEvent;
-import at.srfg.indexing.service.impl.SolrServiceImpl;
-import at.srfg.indexing.service.repository.ClassRepository;
-import at.srfg.indexing.service.repository.PartyRepository;
-import at.srfg.indexing.service.repository.PropertyRepository;
+import at.srfg.iot.indexing.service.event.PartyEvent;
+import at.srfg.iot.indexing.service.event.PropertyMapEvent;
+import at.srfg.iot.indexing.service.impl.SolrServiceImpl;
+import at.srfg.iot.indexing.service.repository.ClassRepository;
+import at.srfg.iot.indexing.service.repository.PropertyRepository;
 import eu.nimble.indexing.repository.ItemRepository;
 import eu.nimble.indexing.service.ItemService;
 import eu.nimble.service.model.solr.item.ItemType;
@@ -42,8 +39,8 @@ public class ItemServiceImpl extends SolrServiceImpl<ItemType> implements ItemSe
 	@Autowired 
 	ItemRepository itemRepo;
 	
-	@Autowired 
-	PartyRepository partyRepo;
+//	@Autowired 
+//	PartyRepository partyRepo;
 	
 	@Autowired
 	PropertyRepository propRepo;
@@ -161,10 +158,10 @@ public class ItemServiceImpl extends SolrServiceImpl<ItemType> implements ItemSe
 
 	private void postProcessManufacturer(ItemType t) {
 		if ( t.getManufacturerId() != null ) {
-			Optional<PartyType> p = partyRepo.findById(t.getManufacturerId());
-			if ( p.isPresent()) {
-				t.setManufacturer(p.get());
-			}
+//			Optional<PartyType> p = partyRepo.findById(t.getManufacturerId());
+//			if ( p.isPresent()) {
+//				t.setManufacturer(p.get());
+//			}
 		}
 	}
 	private void postProcessClassification(ItemType t) {
@@ -220,19 +217,19 @@ public class ItemServiceImpl extends SolrServiceImpl<ItemType> implements ItemSe
 	private void enrichManufacturers(List<ItemType> items) {
 		// read all existing manufacturers
 		if ( items != null && !items.isEmpty()) {
-			final Map<String, PartyType> map = partyRepo.findByUriIn(extractManufacturers(items)).stream()
-					.collect(Collectors.toMap(PartyType::getUri, p->p));
-			
-			items.forEach(new Consumer<ItemType>() {
-				
-				@Override
-				public void accept(ItemType t) {
-					if ( map.containsKey(t.getManufacturerId())) {
-						// add the retrieved customer to the actual list
-						t.setManufacturer(map.get(t.getManufacturerId()));
-					}
-				}
-			});
+//			final Map<String, PartyType> map = partyRepo.findByUriIn(extractManufacturers(items)).stream()
+//					.collect(Collectors.toMap(PartyType::getUri, p->p));
+//			
+//			items.forEach(new Consumer<ItemType>() {
+//				
+//				@Override
+//				public void accept(ItemType t) {
+//					if ( map.containsKey(t.getManufacturerId())) {
+//						// add the retrieved customer to the actual list
+//						t.setManufacturer(map.get(t.getManufacturerId()));
+//					}
+//				}
+//			});
 		}
 	}
 

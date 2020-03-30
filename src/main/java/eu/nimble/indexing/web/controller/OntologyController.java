@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import at.srfg.indexing.service.OntologyService;
-import at.srfg.indexing.web.controller.SearchEvent;
+import at.srfg.iot.indexing.controller.SearchEvent;
+import at.srfg.iot.indexing.service.OntologyService;
 //import eu.nimble.utility.LoggerUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

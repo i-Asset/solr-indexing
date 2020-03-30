@@ -44,10 +44,10 @@ import at.srfg.indexing.model.common.CodedType;
 import at.srfg.indexing.model.common.Concept;
 import at.srfg.indexing.model.common.PropertyType;
 import at.srfg.indexing.model.common.ValueQualifier;
-import at.srfg.indexing.service.OntologyService;
-import at.srfg.indexing.service.repository.ClassRepository;
-import at.srfg.indexing.service.repository.CodedRepository;
-import at.srfg.indexing.service.repository.PropertyRepository;
+import at.srfg.iot.indexing.service.OntologyService;
+import at.srfg.iot.indexing.service.repository.ClassRepository;
+import at.srfg.iot.indexing.service.repository.CodedRepository;
+import at.srfg.iot.indexing.service.repository.PropertyRepository;
 import eu.nimble.indexing.service.impl.owl.NIMBLEOntology;
 import eu.nimble.service.model.solr.item.ItemType;
 /**

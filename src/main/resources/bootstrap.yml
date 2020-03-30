@@ -21,7 +21,7 @@ management:
 
 logstash:
   uri: ${LOGSTASH_URI:localhost:5000}
-
-nimble:
+# setting used with MVC config
+indexing:
   corsEnabled: false
   platformHost: ${INDEXING_SERVICE_URL:http://localhost:8090}

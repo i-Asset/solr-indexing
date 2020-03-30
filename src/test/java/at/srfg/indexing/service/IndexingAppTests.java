@@ -12,6 +12,8 @@ import at.srfg.indexing.model.asset.AssetType;
 import at.srfg.indexing.model.common.ClassType;
 import at.srfg.indexing.model.common.PropertyType;
 import at.srfg.indexing.model.common.ValueQualifier;
+import at.srfg.iot.indexing.service.ClassService;
+import at.srfg.iot.indexing.service.PropertyService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

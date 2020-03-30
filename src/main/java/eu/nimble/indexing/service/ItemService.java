@@ -2,7 +2,7 @@ package eu.nimble.indexing.service;
 
 import java.util.List;
 
-import at.srfg.indexing.service.SolrService;
+import at.srfg.iot.indexing.service.SolrService;
 import eu.nimble.service.model.solr.item.ItemType;
 
 public interface ItemService extends SolrService<ItemType> {
