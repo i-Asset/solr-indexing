@@ -1,5 +1,6 @@
 package at.srfg.iot.indexing.service;
 
+import java.util.Optional;
 import java.util.Set;
 
 import at.srfg.indexing.model.common.PropertyType;
@@ -17,5 +18,6 @@ public interface PropertyService extends SolrService<PropertyType> {
 
 	SearchResult<PropertyType> findByIdxNames(Set<String> idxNames);
 
+	Optional<PropertyType> findCustomProperty(Class<?> nameSpace, String idxName);
 	
 }

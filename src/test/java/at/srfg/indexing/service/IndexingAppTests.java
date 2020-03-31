@@ -1,6 +1,10 @@
 package at.srfg.indexing.service;
 
+import static org.junit.Assert.assertTrue;
+
+import java.util.Collections;
 import java.util.Locale;
+import java.util.Optional;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import at.srfg.indexing.model.asset.AssetType;
 import at.srfg.indexing.model.common.ClassType;
 import at.srfg.indexing.model.common.PropertyType;
 import at.srfg.indexing.model.common.ValueQualifier;
@@ -25,7 +28,49 @@ public class IndexingAppTests {
 	@Test
 	public void contextLoads() {
 	}
-	
+
+	@Test
+	public void testProperty() {
+		PropertyType p = new PropertyType();
+		p.setLabel("Demo", Locale.GERMAN);
+		p.setCode("demo");
+		p.setUri("urn:test:demo");
+		p.setLocalName("demo");
+		p.setNameSpace("urn:test");
+		p.setItemFieldNames(Collections.singleton("demo"));
+		p.setValueQualifier(ValueQualifier.STRING);
+		//
+		propertyService.set(p);
+		
+		ClassType c = new ClassType();
+		c.setLabel("Demo", Locale.GERMAN);
+		c.setCode("class");
+		c.setUri("urn:test:class");
+		c.setLocalName("class");
+		c.setNameSpace("urn:test");
+		c.addProperty(p);
+		classService.set(c);
+		
+		Optional<PropertyType> read = propertyService.get(p.getUri());
+		PropertyType p2 = read.get();
+		assertTrue(read.isPresent());
+		assertTrue(p2.getConceptClass().contains(c.getUri()));
+		// 
+		classService.remove(c.getUri());
+		try {
+			// wait a while so that asynchronous processing can take place
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Optional<PropertyType> read3 = propertyService.get(p.getUri());
+		PropertyType p3 = read3.get();
+		assertTrue(read.isPresent());
+		assertTrue(!p3.getConceptClass().contains(c.getUri()));
+		//
+		propertyService.remove(p.getUri());
+	}
 	@Test
 	public void testClassification() {
 		PropertyType labelProperty = new PropertyType();
@@ -44,13 +89,7 @@ public class IndexingAppTests {
 		classType.setLabel("Robot", Locale.ENGLISH);
 		classType.addProperty(labelProperty);
 		classService.set(classType);
-		AssetType asset = new AssetType();
-		asset.setUri("urn:test:asset1");
-		asset.setLabel("Asset",Locale.GERMAN);
-		asset.setLabel("Asset", Locale.ENGLISH);
-		// use the idShort of the model (hiearchy)
-		asset.addProperty(10.0, "operation", "mix", "demo");
-		asset.setCode("asset1");
+		
 	}
 
 }

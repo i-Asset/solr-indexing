@@ -4,9 +4,9 @@ import org.springframework.context.ApplicationEvent;
 
 import at.srfg.indexing.model.common.ICustomPropertyAware;
 
-public class CustomPropertyEvent extends ApplicationEvent {
+public class CustomPropertyAwareEvent extends ApplicationEvent {
 
-	public CustomPropertyEvent(Object source, ICustomPropertyAware custom) {
+	public CustomPropertyAwareEvent(Object source, ICustomPropertyAware custom) {
 		super(source);
 
 		this.item = custom;

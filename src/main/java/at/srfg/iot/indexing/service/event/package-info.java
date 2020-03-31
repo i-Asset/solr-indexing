@@ -1,7 +1,7 @@
 /**
- * Asynchronous Event objects including event listener implementation
+ * Event objects including event listener implementation.
  * <p>
- * Ensure to have the ApplicationEventMulticaster enabled.
+ * Some of the EventListener are asynchronous
  * </p>
  */
 package at.srfg.iot.indexing.service.event;

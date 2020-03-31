@@ -39,13 +39,17 @@ import org.springframework.data.solr.core.query.result.FacetPage;
 import org.springframework.data.solr.repository.SolrCrudRepository;
 import org.springframework.stereotype.Service;
 
+import at.srfg.indexing.model.common.ICustomPropertyAware;
 import at.srfg.indexing.model.common.IPropertyAware;
 import at.srfg.indexing.model.solr.FacetResult;
 import at.srfg.indexing.model.solr.IndexField;
 import at.srfg.indexing.model.solr.Search;
 import at.srfg.indexing.model.solr.SearchResult;
 import at.srfg.iot.indexing.service.SolrService;
-import at.srfg.iot.indexing.service.event.PropertyEvent;
+import at.srfg.iot.indexing.service.event.CustomPropertyAwareEvent;
+import at.srfg.iot.indexing.service.event.RemovePropertyAwareEvent;
+import at.srfg.iot.indexing.service.event.PropertyAwareEvent;
+import at.srfg.iot.indexing.service.event.RemoveCustomPropertyAwareEvent;
 import at.srfg.iot.indexing.solr.query.QueryHelper;
 import at.srfg.iot.indexing.solr.query.SolrJoin;
 
@@ -107,6 +111,7 @@ public abstract class SolrServiceImpl<T> implements SolrService<T> {
 	public void remove(String uri) {
 		Optional<T> c = get(uri);
 		if (c.isPresent()) {
+			handleRemove(c.get());
 			solr.delete(c.get());
 		}
 	}
@@ -455,9 +460,24 @@ public abstract class SolrServiceImpl<T> implements SolrService<T> {
 		// call the implementors prePersist
 		prePersist(t);
 		if ( t instanceof IPropertyAware) {
-			getEventPublisher().publishEvent(new PropertyEvent(this, (IPropertyAware)t));
+			getEventPublisher().publishEvent(new PropertyAwareEvent(this, (IPropertyAware)t));
+		}
+		if ( t instanceof ICustomPropertyAware) {
+			getEventPublisher().publishEvent(new CustomPropertyAwareEvent(this, (ICustomPropertyAware)t));
 		}
 		
+	}
+	protected void postRemove(T t) {
+		// subclasses may override
+	}
+	private void handleRemove(T t) {
+		postRemove(t);
+		if ( t instanceof IPropertyAware ) {
+			getEventPublisher().publishEvent(new RemovePropertyAwareEvent(this, (IPropertyAware)t));
+		}
+		if ( t instanceof ICustomPropertyAware ) {
+			getEventPublisher().publishEvent(new RemoveCustomPropertyAwareEvent(this, (ICustomPropertyAware)t));
+		}
 	}
 	/**
 	 * Perform post processing on a selected object

@@ -21,7 +21,6 @@ import at.srfg.indexing.model.common.Concept;
 import at.srfg.indexing.model.common.PropertyType;
 import at.srfg.indexing.model.party.PartyType;
 import at.srfg.indexing.model.solr.IndexField;
-import at.srfg.iot.indexing.service.event.PartyEvent;
 import at.srfg.iot.indexing.service.event.PropertyMapEvent;
 import at.srfg.iot.indexing.service.impl.SolrServiceImpl;
 import at.srfg.iot.indexing.service.repository.ClassRepository;
@@ -180,8 +179,8 @@ public class ItemServiceImpl extends SolrServiceImpl<ItemType> implements ItemSe
 		if ( m != null && m.getId() != null ) {
 			// use the manufacturer's id prior to the manufactuerId 
 			t.setManufacturerId(m.getId());
-			//
-			eventPublisher.publishEvent(new PartyEvent(this, m));
+			// 
+			// eventPublisher.publishEvent(new PartyEvent(this, m));
 		}
 	}
 	private void preProcessPropertyMap(ItemType t, Map<String, String> propertyMap) {

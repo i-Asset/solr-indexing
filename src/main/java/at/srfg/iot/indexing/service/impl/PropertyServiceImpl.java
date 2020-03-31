@@ -1,6 +1,7 @@
 package at.srfg.iot.indexing.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,6 +63,13 @@ public class PropertyServiceImpl extends SolrServiceImpl<PropertyType> implement
 	public SearchResult<PropertyType> findForClasses(Set<String> classTypes) {
 		List<PropertyType> result = propRepo.findByConceptClassIn(classTypes);
 		return new SearchResult<PropertyType>(result);
+	}
+
+	@Override
+	public Optional<PropertyType> findCustomProperty(Class<?> nameSpace, String idxName) {
+		String ns = nameSpace.getName();
+		return propRepo.findByNameSpaceAndItemFieldNames(ns,idxName);
+		
 	}
 
 }

@@ -11,7 +11,8 @@ import java.util.function.Predicate;
 
 import org.apache.jena.vocabulary.XSD;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationListener;
+import org.springframework.context.event.EventListener;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import at.srfg.indexing.model.common.ICustomPropertyAware;
@@ -20,13 +21,25 @@ import at.srfg.indexing.model.common.ValueQualifier;
 import at.srfg.iot.indexing.service.repository.PropertyRepository;
 
 @Component
-public class CustomPropertyEventListener implements ApplicationListener<CustomPropertyEvent> {
+public class CustomPropertyAwareEventListener {
 
 	@Autowired
 	private PropertyRepository propRepo;
-
-	@Override
-	public void onApplicationEvent(CustomPropertyEvent event) {
+	@Async
+	@EventListener
+	public void onRemoveCustomPropertyAware(RemoveCustomPropertyAwareEvent event) {
+		ICustomPropertyAware item = event.getItem();
+		// find all custom properties created for this ICustomPropertyAware
+		for (PropertyType pt :propRepo.findByNameSpaceAndItemFieldNamesIn(item.getClass().getName(), item.getCustomPropertyKeys().keySet())) {
+			if (pt.getItemFieldNames().size() <= 1) {
+				propRepo.delete(pt);
+			}
+		};
+		
+	}
+	@Async
+	@EventListener
+	public void onApplicationEvent(CustomPropertyAwareEvent event) {
 
 		ICustomPropertyAware item = event.getItem();
 		if (item.getCustomProperties() != null && !item.getCustomProperties().isEmpty()) {
@@ -47,14 +60,14 @@ public class CustomPropertyEventListener implements ApplicationListener<CustomPr
 						boolean changeDetected = false;
 						// 
 						PropertyType change = item.getCustomProperties().get(key.get());
-						// harmonize item field names
-						for (String idxField : change.getItemFieldNames()) {
-							if (!c.getItemFieldNames().contains(idxField)) {
-								c.addItemFieldName(idxField);
-								// add to changed with URI - to have it saved ...
-								changeDetected = true;
-							}
-						}
+//						// harmonize item field names
+//						for (String idxField : change.getItemFieldNames()) {
+//							if (!c.getItemFieldNames().contains(idxField)) {
+//								c.addItemFieldName(idxField);
+//								// add to changed with URI - to have it saved ...
+//								changeDetected = true;
+//							}
+//						}
 						// harmonize labels
 						if ( harmonizeLabels(c.getLabel(), change.getLabel())) {
 							changeDetected = true;
@@ -81,11 +94,13 @@ public class CustomPropertyEventListener implements ApplicationListener<CustomPr
 				public void accept(String qualifier, PropertyType newProp) {
 					PropertyType pt = new PropertyType();
 					// how to specify uri, localName & nameSpace
-					// TODO - use namespace from config
-					pt.setUri("urn:nimble:custom:" + qualifier);
-					pt.setNameSpace("urn:nimble:custom:");
+					String namespace = item.getClass().getName();
+					String uri = namespace+"#"+qualifier;
+					pt.setUri(uri);
+					pt.setNameSpace(namespace);
 					pt.setLocalName(qualifier);
-					pt.setItemFieldNames(newProp.getItemFieldNames());
+					pt.setCode(qualifier);
+					pt.addItemFieldName(qualifier);
 					pt.setLabel(newProp.getLabel());
 					pt.setComment(newProp.getComment());
 					pt.setDescription(newProp.getDescription());
