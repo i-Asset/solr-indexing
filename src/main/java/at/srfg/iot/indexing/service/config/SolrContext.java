@@ -20,8 +20,7 @@ import at.srfg.iot.indexing.solr.schema.SolrTemplate;
 
 @Configuration
 @EnableSolrRepositories(basePackages= {
-			"at.srfg.iot.indexing.service.repository",
-			"eu.nimble.indexing.repository"
+			"at.srfg.iot.indexing.service.repository"
 		}, 
 		schemaCreationSupport=true)
 public class SolrContext {

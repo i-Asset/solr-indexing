@@ -47,7 +47,7 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .host(platformHost)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("at.srfg.indexing"))
+                .apis(RequestHandlerSelectors.basePackage("at.srfg.iot.indexing"))
 //                .apis(RequestHandlerSelectors.basePackage("eu.nimble.indexing"))
                 .paths(PathSelectors.any())
                 .build()
