@@ -23,7 +23,7 @@ public class SwaggerConfig {
 
     private static final Logger logger = LoggerFactory.getLogger(SwaggerConfig.class);
 
-    @Value("${nimble.platformHost:}")
+    @Value("${indexing.platformHost:}")
     private String platformHost;
 
     public static final ApiInfo DEFAULT_API_INFO = new ApiInfoBuilder()

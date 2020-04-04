@@ -100,13 +100,7 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-config</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>at.srfg.common</groupId>
-			<artifactId>solr-model</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<!--logstash dependencies 
-		-->
+		<!--logstash dependencies -->
 		<dependency>
 			<groupId>net.logstash.logback</groupId>
 			<artifactId>logstash-logback-encoder</artifactId>
@@ -116,7 +110,6 @@
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
 		</dependency>
-
 		<!--swagger dependencies -->
 		<dependency>
 			<groupId>io.springfox</groupId>
@@ -134,6 +127,20 @@
 			<artifactId>spring-security-jwt</artifactId>
 			<version>1.0.9.RELEASE</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>javax.ws.rs</groupId>
+			<artifactId>javax.ws.rs-api</artifactId>
+			<version>2.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>at.srfg.common</groupId>
+			<artifactId>solr-model</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<!--logstash dependencies -->
+
 	</dependencies>
 
 	<build>

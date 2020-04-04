@@ -89,6 +89,9 @@ public class IndexingAppTests {
 		classType.setLabel("Robot", Locale.ENGLISH);
 		classType.addProperty(labelProperty);
 		classService.set(classType);
+		// 
+		propertyService.remove(labelProperty.getUri());
+		classService.remove(classType.getUri());
 		
 	}
 
