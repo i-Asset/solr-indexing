@@ -104,8 +104,8 @@ public class IndexController  implements IndexingService {
 			@RequestParam(name = "facet.field", required = false) List<String> facetFields,
 			@RequestParam(name = "facet.limit", required = false, defaultValue = "15") int facetLimit,
 			@RequestParam(name = "facet.mincount", required = false, defaultValue = "1") int facetMinCount,
-			@RequestParam(name = "start", required = false, defaultValue = "0") Integer start,
-			@RequestParam(name = "rows", required = false, defaultValue = "10") Integer rows
+			@RequestParam(name = "start", required = false, defaultValue = "0") int start,
+			@RequestParam(name = "rows", required = false, defaultValue = "10") int rows
 			)  throws Exception {
 
 //		if (identityService.hasAnyRole(bearerToken, PLATFORM_MANAGER,LEGAL_REPRESENTATIVE,NIMBLE_USER,PUBLISHER,
@@ -254,8 +254,8 @@ public class IndexController  implements IndexingService {
 			@RequestParam(name = "facet.field", required = false) List<String> facetFields,
 			@RequestParam(name = "facet.limit", required = false, defaultValue = "15") int facetLimit,
 			@RequestParam(name = "facet.mincount", required = false, defaultValue = "1") int facetMinCount,
-			@RequestParam(name = "start", required = false, defaultValue = "0") Integer start,
-			@RequestParam(name = "rows", required = false, defaultValue = "10") Integer rows) throws Exception {
+			@RequestParam(name = "start", required = false, defaultValue = "0") int start,
+			@RequestParam(name = "rows", required = false, defaultValue = "10") int rows) throws Exception {
 //		if (identityService.hasAnyRole(bearerToken, PLATFORM_MANAGER,LEGAL_REPRESENTATIVE,NIMBLE_USER,PUBLISHER,
 //				COMPANY_ADMIN,EFACTORYUSER) == false)
 //			return new ResponseEntity<>("User Not Allowed To Access The Indexing End Points", HttpStatus.UNAUTHORIZED);
@@ -581,8 +581,8 @@ public class IndexController  implements IndexingService {
 			@RequestParam(name = "facet.field", required = false) List<String> facetFields,
 			@RequestParam(name = "facet.limit", required = false, defaultValue = "15") int facetLimit,
 			@RequestParam(name = "facet.mincount", required = false, defaultValue = "1") int facetMinCount,
-			@RequestParam(name = "start", required = false, defaultValue = "0") Integer start,
-			@RequestParam(name = "rows", required = false, defaultValue = "10") Integer rows)throws Exception {
+			@RequestParam(name = "start", required = false, defaultValue = "0") int start,
+			@RequestParam(name = "rows", required = false, defaultValue = "10") int rows)throws Exception {
 
 //		if (identityService.hasAnyRole(bearerToken, PLATFORM_MANAGER,LEGAL_REPRESENTATIVE,NIMBLE_USER,
 //				PUBLISHER,COMPANY_ADMIN,EFACTORYUSER) == false)
