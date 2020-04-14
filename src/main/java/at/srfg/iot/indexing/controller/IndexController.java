@@ -37,8 +37,8 @@ import io.swagger.annotations.ApiParam;
 //@CrossOrigin
 @RestController
 @Deprecated
-@Api(value = "Index Controller",
-		description = "Search API to perform Solr operations on indexed parties (organizations), items, item-properties, "
+@Api(value = "Index Controller (Deprecated)",
+		description = "OLD (Nimble-Style) Search API to perform Solr operations on indexed parties (organizations), items, item-properties, "
 				+ "property-codes and classes (item categories)")
 public class IndexController  implements IndexingService {
 
