@@ -23,7 +23,7 @@ import at.srfg.indexing.core.solr.schema.SolrTemplate;
 
 @Configuration
 @EnableSolrRepositories(basePackages= {
-			"at.srfg.iot.indexing.service.repository"
+			"at.srfg.indexing.core.service.repository"
 		}, 
 		schemaCreationSupport=true)
 public class SolrContext {

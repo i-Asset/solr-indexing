@@ -20,8 +20,11 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 		SecurityAutoConfiguration.class , 
 		ManagementWebSecurityAutoConfiguration.class
 		})
-@ComponentScan({"at.srfg.iot.indexing", 
-			"at.srfg.indexing.controller"})
+@ComponentScan({
+	// core components (to be reused)
+	"at.srfg.indexing.core", 
+	// controller for standalone use
+	"at.srfg.indexing.controller"})
 @EnableDiscoveryClient
 @RestController
 @EnableSwagger2

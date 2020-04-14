@@ -1,4 +1,4 @@
-package at.srfg.indexing.service;
+package at.srfg.indexing.app;
 
 import static org.junit.Assert.assertTrue;
 
