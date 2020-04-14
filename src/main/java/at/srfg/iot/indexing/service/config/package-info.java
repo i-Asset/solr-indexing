@@ -1,1 +1,0 @@
-package at.srfg.iot.indexing.service.config;

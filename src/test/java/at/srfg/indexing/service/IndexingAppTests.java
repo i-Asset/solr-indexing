@@ -12,11 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import at.srfg.indexing.core.service.ClassService;
+import at.srfg.indexing.core.service.PropertyService;
 import at.srfg.indexing.model.common.ClassType;
 import at.srfg.indexing.model.common.PropertyType;
 import at.srfg.indexing.model.common.ValueQualifier;
-import at.srfg.iot.indexing.service.ClassService;
-import at.srfg.iot.indexing.service.PropertyService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
