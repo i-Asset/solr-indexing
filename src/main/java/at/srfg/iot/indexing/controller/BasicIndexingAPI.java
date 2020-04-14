@@ -9,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.solr.core.query.SolrPageRequest;
-import org.springframework.web.bind.annotation.RestController;
 
 import at.srfg.indexing.ClassTypeIndexing;
 import at.srfg.indexing.CodedTypeIndexing;
@@ -24,20 +23,15 @@ import at.srfg.indexing.model.solr.SearchResult;
 import at.srfg.iot.indexing.service.ClassService;
 import at.srfg.iot.indexing.service.CodeService;
 import at.srfg.iot.indexing.service.PropertyService;
-//import eu.nimble.utility.LoggerUtils;
-import io.swagger.annotations.Api;
 
 //@CrossOrigin
-@RestController
-@Api(value = "Indexing Controller", description = "Search API to perform Solr operations on indexed parties (organizations), items, item-properties, "
-		+ "property-codes and classes (item categories)")
-public class FeignIndexController implements ClassTypeIndexing, PropertyTypeIndexing, CodedTypeIndexing {
+public class BasicIndexingAPI implements ClassTypeIndexing, PropertyTypeIndexing, CodedTypeIndexing {
 
 	@Autowired
-	private PropertyService propertyService;
+	protected PropertyService propertyService;
 
 	@Autowired
-	private ClassService classService;
+	protected ClassService classService;
 //
 //	@Autowired
 //	private PartyService partyService;
@@ -46,12 +40,12 @@ public class FeignIndexController implements ClassTypeIndexing, PropertyTypeInde
 //	private ItemService itemService;
 
 	@Autowired
-	private CodeService codeService;
+	protected CodeService codeService;
 
 //	@Autowired
 //	private IdentityService identityService;
 
-	private static final Logger logger = LoggerFactory.getLogger(FeignIndexController.class);
+	private static final Logger logger = LoggerFactory.getLogger(BasicIndexingAPI.class);
 
 	public Optional<ClassType> getClassType(String uri) throws Exception {
 		return classService.get(uri);

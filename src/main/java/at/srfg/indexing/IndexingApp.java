@@ -20,7 +20,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 		SecurityAutoConfiguration.class , 
 		ManagementWebSecurityAutoConfiguration.class
 		})
-@ComponentScan("at.srfg.iot.indexing")
+@ComponentScan({"at.srfg.iot.indexing", 
+			"at.srfg.indexing.controller"})
 @EnableDiscoveryClient
 @RestController
 @EnableSwagger2
