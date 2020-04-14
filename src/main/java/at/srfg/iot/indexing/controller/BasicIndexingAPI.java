@@ -23,9 +23,16 @@ import at.srfg.indexing.model.solr.SearchResult;
 import at.srfg.iot.indexing.service.ClassService;
 import at.srfg.iot.indexing.service.CodeService;
 import at.srfg.iot.indexing.service.PropertyService;
-
+/**
+ * Abstract basic indexing API
+ * <p>
+ * 
+ * </p>
+ * @author dglachs
+ *
+ */
 //@CrossOrigin
-public class BasicIndexingAPI implements ClassTypeIndexing, PropertyTypeIndexing, CodedTypeIndexing {
+public abstract class BasicIndexingAPI implements ClassTypeIndexing, PropertyTypeIndexing, CodedTypeIndexing {
 
 	@Autowired
 	protected PropertyService propertyService;

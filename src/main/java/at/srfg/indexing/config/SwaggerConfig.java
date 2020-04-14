@@ -1,4 +1,4 @@
-package at.srfg.iot.indexing.service.config;
+package at.srfg.indexing.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,9 +27,9 @@ public class SwaggerConfig {
     private String platformHost;
 
     public static final ApiInfo DEFAULT_API_INFO = new ApiInfoBuilder()
-            .title("Indexing Service API")
+            .title("Indexing Service API (Basic)")
             .description(
-                    "API documentation for Indexing Service's APIs.")
+                    "API documentation for Basic Indexing Service's APIs.")
             .version("V1.0.0")
             .contact(new Contact("IOT@SalzburgResearch", null, "iot@salzburgresearch.at"))
             .build();
