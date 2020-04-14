@@ -1,4 +1,4 @@
-package at.srfg.indexing.app;
+package at.srfg.solr.app;
 
 import static org.junit.Assert.assertTrue;
 
