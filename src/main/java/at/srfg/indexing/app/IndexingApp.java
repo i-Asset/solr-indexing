@@ -24,7 +24,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 	// core components (to be reused)
 	"at.srfg.indexing.core", 
 	// controller for standalone use
-	"at.srfg.indexing.controller"})
+	"at.srfg.indexing.app"})
 @EnableDiscoveryClient
 @RestController
 @EnableSwagger2
