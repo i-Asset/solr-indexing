@@ -30,11 +30,14 @@ public class CustomPropertyAwareEventListener {
 	public void onRemoveCustomPropertyAware(RemoveCustomPropertyAwareEvent event) {
 		ICustomPropertyAware item = event.getItem();
 		// find all custom properties created for this ICustomPropertyAware
-		for (PropertyType pt :propRepo.findByNameSpaceAndItemFieldNamesIn(item.getClass().getName(), item.getCustomPropertyKeys().keySet())) {
-			if (pt.getItemFieldNames().size() <= 1) {
-				propRepo.delete(pt);
-			}
-		};
+		if (! item.getCustomPropertyKeys().isEmpty()) {
+			for (PropertyType pt :propRepo.findByNameSpaceAndItemFieldNamesIn(item.getClass().getName(), item.getCustomPropertyKeys().keySet())) {
+				if (pt.getItemFieldNames().size() <= 1) {
+					propRepo.delete(pt);
+				}
+			};
+		}
+		
 		
 	}
 	@Async
