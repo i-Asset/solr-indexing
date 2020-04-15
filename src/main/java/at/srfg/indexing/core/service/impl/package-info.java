@@ -1,0 +1,1 @@
+package at.srfg.indexing.core.service.impl;

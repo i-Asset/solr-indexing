@@ -1,1 +1,0 @@
-package at.srfg.solr.core.service.config;
