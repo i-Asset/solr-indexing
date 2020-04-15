@@ -60,7 +60,7 @@ public abstract class BasicIndexingAPI implements ClassTypeIndexing, PropertyTyp
 
 	@Override
 	public Collection<IndexField> fieldsForClassType(Set<String> fieldNames) throws Exception {
-		return classService.fields();
+		return classService.fields(fieldNames);
 	}
 
 	public SearchResult<ClassType> searchForClassType(
