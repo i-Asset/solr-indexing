@@ -7,8 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import at.srfg.indexing.core.service.ClassService;
+import at.srfg.indexing.core.service.event.ParentChildAwareEvent;
+import at.srfg.indexing.core.service.event.RemoveParentChildAwareEvent;
 import at.srfg.indexing.core.service.repository.ClassRepository;
 import at.srfg.indexing.model.common.ClassType;
+import at.srfg.indexing.model.common.IParentChildAware;
 import at.srfg.indexing.model.solr.SearchResult;
 
 @Service
@@ -45,11 +48,17 @@ public class ClassServiceImpl extends SolrServiceImpl<ClassType> implements Clas
 
 	@Override
 	protected void prePersist(ClassType t) {
-		// check for property meta data
-		if ( t.getPropertyMap()!=null ) {
-			
-		}
 		super.prePersist(t);
+		getEventPublisher().publishEvent(new ParentChildAwareEvent(this, t));
+		// check for property meta data
+	}
+
+	@Override
+	protected void postRemove(ClassType t) {
+		if ( t instanceof IParentChildAware ) {
+			getEventPublisher().publishEvent(new RemoveParentChildAwareEvent(this, t));
+		}
+		super.postRemove(t);
 	}
 	
 }
