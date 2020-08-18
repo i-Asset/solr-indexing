@@ -32,7 +32,7 @@ public class IndexingAppTests {
 	@Test
 	public void testProperty() {
 		PropertyType p = new PropertyType();
-		p.setLabel("Demo", Locale.GERMAN);
+		p.setLabel(Locale.GERMAN, "Demo");
 		p.setCode("demo");
 		p.setUri("urn:test:demo");
 		p.setLocalName("demo");
@@ -43,7 +43,7 @@ public class IndexingAppTests {
 		propertyService.set(p);
 		
 		ClassType c = new ClassType();
-		c.setLabel("Demo", Locale.GERMAN);
+		c.setLabel(Locale.GERMAN, "Demo");
 		c.setCode("class");
 		c.setUri("urn:test:class");
 		c.setLocalName("class");
@@ -54,7 +54,7 @@ public class IndexingAppTests {
 		Optional<PropertyType> read = propertyService.get(p.getUri());
 		PropertyType p2 = read.get();
 		assertTrue(read.isPresent());
-		assertTrue(p2.getConceptClass().contains(c.getUri()));
+		assertTrue(p2.getPropertyUsage().containsValue(c.getUri()));
 		// 
 		classService.remove(c.getUri());
 		try {
@@ -67,15 +67,15 @@ public class IndexingAppTests {
 		Optional<PropertyType> read3 = propertyService.get(p.getUri());
 		PropertyType p3 = read3.get();
 		assertTrue(read.isPresent());
-		assertTrue(!p3.getConceptClass().contains(c.getUri()));
+		assertTrue(!p3.getPropertyUsage().containsValue(c.getUri()));
 		//
 		propertyService.remove(p.getUri());
 	}
 	@Test
 	public void testClassification() {
 		PropertyType labelProperty = new PropertyType();
-		labelProperty.setLabel("Bezeichnung", Locale.GERMAN);
-		labelProperty.setLabel("Label", Locale.ENGLISH);
+		labelProperty.setLabel(Locale.GERMAN, "Bezeichnung");
+		labelProperty.setLabel(Locale.ENGLISH, "Label");
 		labelProperty.setCode("label");
 		labelProperty.setUri("urn:test:label");
 		labelProperty.setLocalName("label");
@@ -85,8 +85,8 @@ public class IndexingAppTests {
 		propertyService.set(labelProperty);
 		ClassType classType = new ClassType();
 		classType.setUri("urn:test:class1");
-		classType.setLabel("Roboter", Locale.GERMAN);
-		classType.setLabel("Robot", Locale.ENGLISH);
+		classType.setLabel(Locale.GERMAN, "Roboter");
+		classType.setLabel(Locale.ENGLISH, "Robot");
 		classType.addProperty(labelProperty);
 		classService.set(classType);
 		// 

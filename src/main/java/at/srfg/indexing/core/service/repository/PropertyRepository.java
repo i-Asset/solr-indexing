@@ -127,7 +127,8 @@ public interface PropertyRepository  extends SolrCrudRepository<PropertyType, St
 		})
 	List<PropertyType> findByNameSpaceAndLocalNameIn(String namespace, Set<String> localNames);
 	/**
-	 * Retrieve multiple properties by their uri
+	 * Retrieve multiple properties by their uri.
+	 * Note: The fields indicating the usage are not included
 	 * @param uri list of URI's to resolve
 	 * @return
 	 */
@@ -154,6 +155,9 @@ public interface PropertyRepository  extends SolrCrudRepository<PropertyType, St
 			IPropertyType.CODE_LIST_ID_FIELD
 		})
 	List<PropertyType> findByUriIn(Set<String> uri);
+	
+	@Query("id:(?0...)")
+	List<PropertyType> findByIdIn(Set<String> idSet);
 	/**
 	 * Retrieve multiple properties by the index field name they serve as a label
 	 * @param itemFieldNames
@@ -162,6 +166,7 @@ public interface PropertyRepository  extends SolrCrudRepository<PropertyType, St
 	List<PropertyType> findByItemFieldNamesIn(Set<String> itemFieldNames);
 	/**
 	 * Retrieve multiple fields by their local name OR the index field name 
+	 * Note: The fields indicating the usage are not included
 	 * @param names
 	 * @return
 	 */
@@ -197,6 +202,7 @@ public interface PropertyRepository  extends SolrCrudRepository<PropertyType, St
 	long deleteByNameSpace(String namespace);
 	/**
 	 * Find all properties by their namespace and the index field name
+	 * Note: the fields indicating the usage are not included
 	 * @param nameSpace
 	 * @param idxName
 	 * @return
