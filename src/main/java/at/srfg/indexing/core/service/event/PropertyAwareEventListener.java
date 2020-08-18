@@ -45,10 +45,17 @@ public class PropertyAwareEventListener {
 				Optional<PropertyType> prop = propRepo.findById(t);
 				if ( prop.isPresent()) {
 					PropertyType pt =prop.get();
-					if ( pt.getConceptClass().contains(item.getUri())) {
-						pt.getConceptClass().remove(item.getUri());
-						propRepo.save(pt);
+					boolean changed = false;
+					if ( pt.getPropertyUsage(item.getCollection()).contains(item.getUri()) ) {
+						pt.removePropertyUsage(item.getCollection(), item.getUri());
+						changed = true;
 					}
+					if ( pt.getConceptClass().contains(item.getUri())) {
+						pt.removeConceptClass(item.getUri());
+						changed = true;
+					}
+					if ( changed )
+						propRepo.save(pt);
 				}
 			}
 		});
@@ -65,7 +72,7 @@ public class PropertyAwareEventListener {
 		IPropertyAware item = event.getEventObject();
 		if (item.getPropertyMap() != null && !item.getPropertyMap().isEmpty()) {
 			// find all properties based on idxField name
-			List<PropertyType> existing = propRepo.findByUriIn(item.getPropertyMap().keySet());
+			List<PropertyType> existing = propRepo.findByIdIn(item.getPropertyMap().keySet());
 			// keep a map of properties to change
 			Map<String, PropertyType> changed = new HashMap<String, PropertyType>();
 
@@ -86,8 +93,15 @@ public class PropertyAwareEventListener {
 							changeDetected = true;
 						}
 					}
-					if ( ! c.getConceptClass().contains(item.getUri())) {
-						c.getConceptClass().add(item.getUri());
+					//
+					if ( item instanceof ClassType) {
+						if ( ! c.getConceptClass().contains(item.getUri())) {
+							c.getConceptClass().add(item.getUri());
+							changeDetected = true;
+						}
+					}
+					if ( ! c.getPropertyUsage(item.getCollection()).contains(item.getUri())) {
+						c.addPropertyUsage(item.getCollection(), item.getUri());
 						changeDetected = true;
 					}
 					// on the localNaem
@@ -126,7 +140,12 @@ public class PropertyAwareEventListener {
 						pt.setLabel(newProp.getLabel());
 						pt.setComment(newProp.getComment());
 						pt.setDescription(newProp.getDescription());
-
+						if ( item instanceof ClassType) {
+							pt.addConceptClass(item.getUri());
+						}
+						// keep the link to the issuing collection
+						pt.addPropertyUsage(item.getCollection(), item.getUri());
+						
 						pt.setValueQualifier(
 								newProp.getValueQualifier() != null ? newProp.getValueQualifier() : ValueQualifier.STRING);
 						switch (pt.getValueQualifier()) {
