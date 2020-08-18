@@ -64,13 +64,13 @@ public class CustomPropertyAwareEventListener {
 						// 
 						PropertyType change = item.getCustomProperties().get(key.get());
 //						// harmonize item field names
-//						for (String idxField : change.getItemFieldNames()) {
-//							if (!c.getItemFieldNames().contains(idxField)) {
-//								c.addItemFieldName(idxField);
-//								// add to changed with URI - to have it saved ...
-//								changeDetected = true;
-//							}
-//						}
+						for (String idxField : change.getItemFieldNames()) {
+							if (!c.getItemFieldNames().contains(idxField)) {
+								c.addItemFieldName(idxField);
+								// add to changed with URI - to have it saved ...
+								changeDetected = true;
+							}
+						}
 						// harmonize labels
 						if ( harmonizeLabels(c.getLabel(), change.getLabel())) {
 							changeDetected = true;
@@ -103,6 +103,7 @@ public class CustomPropertyAwareEventListener {
 					pt.setNameSpace(namespace);
 					pt.setLocalName(qualifier);
 					pt.setCode(qualifier);
+					pt.addPropertyUsage(item.getCollection(), qualifier);
 					pt.addItemFieldName(qualifier);
 					pt.setLabel(newProp.getLabel());
 					pt.setComment(newProp.getComment());
