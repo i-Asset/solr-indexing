@@ -93,8 +93,10 @@ public abstract class BasicIndexingAPI implements ClassTypeIndexing, PropertyTyp
 	}
 
 	@Override
-	public boolean deleteClassType(String uri) throws Exception {
-		classService.remove(uri);
+	public boolean deleteClassType(List<String> toDelete) throws Exception {
+		for (String uri : toDelete) {
+			classService.remove(uri);
+		}
 		return true;
 	}
 
@@ -133,8 +135,10 @@ public abstract class BasicIndexingAPI implements ClassTypeIndexing, PropertyTyp
 	}
 
 	@Override
-	public boolean deletePropertyType(String uri) throws Exception {
-		propertyService.remove(uri);
+	public boolean deletePropertyType(List<String> toDelete) throws Exception {
+		for ( String uri : toDelete ) {
+			propertyService.remove(uri);
+		}
 		return true;
 	}
 
@@ -173,8 +177,10 @@ public abstract class BasicIndexingAPI implements ClassTypeIndexing, PropertyTyp
 	}
 
 	@Override
-	public boolean deleteCodedType(String uri) throws Exception {
-		codeService.remove(uri);
+	public boolean deleteCodedType(List<String> toDelete) throws Exception {
+		for (String uri : toDelete) {
+			codeService.remove(uri);
+		}
 		return true;
 	}
 
