@@ -12,6 +12,7 @@ import org.springframework.data.solr.core.query.SolrPageRequest;
 
 import at.srfg.indexing.ClassTypeIndexing;
 import at.srfg.indexing.CodedTypeIndexing;
+import at.srfg.indexing.ConceptIndexing;
 import at.srfg.indexing.PropertyTypeIndexing;
 import at.srfg.indexing.core.service.ClassService;
 import at.srfg.indexing.core.service.CodeService;
@@ -32,7 +33,7 @@ import at.srfg.indexing.model.solr.SearchResult;
  *
  */
 //@CrossOrigin
-public abstract class BasicIndexingAPI implements ClassTypeIndexing, PropertyTypeIndexing, CodedTypeIndexing {
+public abstract class BasicIndexingAPI implements ConceptIndexing, ClassTypeIndexing, PropertyTypeIndexing, CodedTypeIndexing {
 
 	@Autowired
 	protected PropertyService propertyService;
@@ -182,6 +183,23 @@ public abstract class BasicIndexingAPI implements ClassTypeIndexing, PropertyTyp
 			codeService.remove(uri);
 		}
 		return true;
+	}
+	
+	@Override
+	public long deleteConcepts(Set<String> nameSpace) throws Exception {
+		long deleted = 0;
+		for (String ns : nameSpace) {
+			deleted += deleteConcepts(ns);
+		}
+		return deleted;
+	}
+	@Override
+	public long deleteConcepts(String nameSpace) {
+		long deleted = 0;
+		deleted += codeService.deleteNameSpace(nameSpace);
+		deleted += propertyService.deleteNameSpace(nameSpace);
+		deleted += classService.deleteNameSpace(nameSpace);
+		return deleted;
 	}
 
 }

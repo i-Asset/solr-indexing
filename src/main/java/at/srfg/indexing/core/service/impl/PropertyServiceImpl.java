@@ -71,5 +71,15 @@ public class PropertyServiceImpl extends SolrServiceImpl<PropertyType> implement
 		return propRepo.findByNameSpaceAndItemFieldNames(ns,idxName);
 		
 	}
+	@Override
+	public long deleteNameSpace(String nameSpace) {
+		return propRepo.deleteByNameSpace(nameSpace);
+		
+	}
+	@Override
+	public long deleteNameSpaces(Set<String> nameSpace) {
+		return propRepo.deleteByNameSpaceIn(nameSpace);
+		
+	}
 
 }

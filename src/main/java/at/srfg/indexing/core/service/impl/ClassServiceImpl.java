@@ -54,5 +54,16 @@ public class ClassServiceImpl extends SolrServiceImpl<ClassType> implements Clas
 	protected void postRemove(ClassType t) {
 		getEventPublisher().publishEvent(new RemoveParentChildAwareEvent(this, t));
 	}
+
+	@Override
+	public long deleteNameSpace(String nameSpace) {
+		return classRepo.deleteByNameSpace(nameSpace);
+		
+	}
+	@Override
+	public long deleteNameSpaces(Set<String> nameSpace) {
+		return classRepo.deleteByNameSpaceIn(nameSpace);
+		
+	}
 	
 }

@@ -47,6 +47,19 @@ public interface CodedRepository  extends SolrCrudRepository<CodedType, String>{
 	 * @return
 	 */
 	List<CodedType> findByNameSpaceAndLocalNameIn(String namespace, Set<String> localNames);
+	/**
+	 * Remove all coded values of the provided namespace
+	 * @param namespace
+	 * @return
+	 */
+	long deleteByNameSpace(String namespace);
+	/**
+	 * Delete all coded values of the provided namespaces
+	 * @param namespaces
+	 * @return
+	 */
+	long deleteByNameSpaceIn(Set<String> namespaces);
+	
 }
 
 

@@ -78,6 +78,7 @@ public class OntologyServiceImpl implements OntologyService {
 	public boolean deleteNamespace(String namespace) {
 		propRepo.deleteByNameSpace(namespace);
 		classRepository.deleteByNameSpace(namespace);
+		codedRepository.deleteByNameSpace(namespace);
 		return true;
 	}
 	public void upload(String mimeType, List<String> nameSpaces, String onto, OntologyType ontoType) {

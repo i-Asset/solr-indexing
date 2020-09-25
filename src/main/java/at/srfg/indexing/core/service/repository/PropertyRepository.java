@@ -201,6 +201,12 @@ public interface PropertyRepository  extends SolrCrudRepository<PropertyType, St
 	 */
 	long deleteByNameSpace(String namespace);
 	/**
+	 * Delete all properties of the provided namespaces
+	 * @param namespaces
+	 * @return
+	 */
+	long deleteByNameSpaceIn(Set<String> namespaces);
+	/**
 	 * Find all properties by their namespace and the index field name
 	 * Note: the fields indicating the usage are not included
 	 * @param nameSpace
@@ -261,5 +267,4 @@ public interface PropertyRepository  extends SolrCrudRepository<PropertyType, St
 			IPropertyType.CODE_LIST_ID_FIELD
 		})
 	List<PropertyType> findByNameSpaceAndItemFieldNamesIn(String nameSpace, Set<String> idxNames);
-
 }

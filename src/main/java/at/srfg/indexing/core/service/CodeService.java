@@ -14,5 +14,14 @@ public interface CodeService extends SolrService<CodedType> {
 	public SearchResult<CodedType> findByUris(Set<String> uriSet);
 	
 	public SearchResult<CodedType> findForNamespaceAndLocalNames(String nameSpace, Set<String> localNames);
-
+	/**
+	 * Delete all documents of the provided nameSpace
+	 * @param nameSpace
+	 */
+	public long deleteNameSpace(String nameSpace);
+	/**
+	 * Delete all documents of the provided nameSpaces
+	 * @param nameSpace List of nameSpaces to remove
+	 */
+	public long deleteNameSpaces(Set<String> nameSpace);
 }

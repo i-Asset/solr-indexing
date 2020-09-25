@@ -19,5 +19,14 @@ public interface PropertyService extends SolrService<PropertyType> {
 	SearchResult<PropertyType> findByIdxNames(Set<String> idxNames);
 
 	Optional<PropertyType> findCustomProperty(Class<?> nameSpace, String idxName);
-	
+	/**
+	 * Delete all documents of the provided nameSpace
+	 * @param nameSpace
+	 */
+	public long deleteNameSpace(String nameSpace);
+	/**
+	 * Delete all documents of the provided nameSpaces
+	 * @param nameSpace List of nameSpaces to remove
+	 */
+	public long deleteNameSpaces(Set<String> nameSpace);	
 }
