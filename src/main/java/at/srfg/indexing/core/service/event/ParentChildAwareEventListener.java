@@ -152,23 +152,27 @@ public class ParentChildAwareEventListener {
 
 	private void processAllParents(ClassType parentClass, String itemUri) {
 		Collection<String> allParents = parentClass.getAllParents();
-		for (String allParent : allParents) {
-			Optional<ClassType> classType = classRepo.findById(allParent);
-			if (classType.isPresent()) {
-				ClassType pt = classType.get();
-				pt.addAllChild(itemUri);
-				classRepo.save(pt);
+		if ( allParents != null && !allParents.isEmpty()) {
+			for (String allParent : allParents) {
+				Optional<ClassType> classType = classRepo.findById(allParent);
+				if (classType.isPresent()) {
+					ClassType pt = classType.get();
+					pt.addAllChild(itemUri);
+					classRepo.save(pt);
+				}
 			}
 		}
 	}
 	private void processAllChildren(ClassType parentClass, String itemUri) {
-		Collection<String> allParents = parentClass.getAllChildren();
-		for (String allParent : allParents) {
-			Optional<ClassType> classType = classRepo.findById(allParent);
-			if (classType.isPresent()) {
-				ClassType pt = classType.get();
-				pt.addAllParent(itemUri);
-				classRepo.save(pt);
+		Collection<String> allChildren = parentClass.getAllChildren();
+		if ( allChildren != null && ! allChildren.isEmpty()) {
+			for (String allParent : allChildren) {
+				Optional<ClassType> classType = classRepo.findById(allParent);
+				if (classType.isPresent()) {
+					ClassType pt = classType.get();
+					pt.addAllParent(itemUri);
+					classRepo.save(pt);
+				}
 			}
 		}
 	}
